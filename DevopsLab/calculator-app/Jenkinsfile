@@ -5,13 +5,17 @@ pipeline {
 
   stage('Build & Test') {
    steps {
-    sh 'mvn clean test'
+    dir('DevopsLab/calculator-app') {
+     sh 'mvn clean test'
+    }
    }
   }
 
   stage('Package JAR') {
    steps {
-    sh 'mvn package'
+    dir('DevopsLab/calculator-app') {
+     sh 'mvn package'
+    }
    }
   }
 
@@ -19,7 +23,8 @@ pipeline {
 
  post {
   success {
-   archiveArtifacts artifacts: 'target/*.jar'
+   archiveArtifacts artifacts: 'DevopsLab/calculator-app/target/*.jar'
   }
  }
 }
+
